@@ -120,7 +120,7 @@
     }
     nav button {
       cursor: pointer;
-      margin: 0 8px;
+      margin: 0 10px;
       font-weight: 600;
       font-size: 1.1rem;
       padding: 8px 14px;
@@ -272,57 +272,8 @@
       background-color: #d35400;
     }
 
-    /* Meet the Chef */
-    #chef {
-      background: #fdf6e3;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-      color: #4a3c00;
-      margin-bottom: 50px;
-      text-align: center;
-    }
-
-    #chef .image-slider {
-      position: relative;
-      max-width: 300px;
-      margin: 0 auto 20px auto;
-      height: 300px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(211, 84, 0, 0.4);
-    }
-
-    #chef .image-slider img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      border-radius: 15px;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-
-    #chef .image-slider img.active {
-      opacity: 1;
-    }
-
-    #chef .bio {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      background: #fff3d6;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
-      color: #4a3c00;
-    }
-
     /* Initially hidden sections */
-    #catering, #contact, #location, #chef {
+    #catering, #contact, #location {
       display: none;
     }
 
@@ -361,7 +312,6 @@
     <button id="showCatering">Catering</button>
     <button id="showContact">Contact</button>
     <button id="showLocation">Location</button>
-    <button id="showChef">Meet the Chef</button>
   </nav>
 
   <main class="container">
@@ -442,18 +392,6 @@
         <p><a href="https://www.instagram.com/theblackboardkart/" target="_blank" rel="noopener noreferrer">@theblackboardkart</a></p>
       </div>
     </section>
-
-    <!-- Meet the Chef -->
-    <section id="chef">
-      <h2>Meet the Chef</h2>
-      <div class="image-slider">
-        <img src="images/eric1.jpg" alt="Eric McGraw - Chef 1" class="active" />
-        <img src="images/eric2.jpg" alt="Eric McGraw - Chef 2" />
-      </div>
-      <div class="bio">
-        <p>Chef Eric McGraw is a passionate culinary artist who believes food is a powerful way to connect with people. With years of experience at the Logan Tavern in downtown Spokane, Eric’s love for cooking and community inspired him to open The Blackboard Kart. When he’s not crafting delicious dishes, Eric enjoys spending quality time with his wife and two sons, cherishing the moments that make life flavorful both inside and outside the kitchen.</p>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -466,27 +404,23 @@
     const btnCatering = document.getElementById('showCatering');
     const btnContact = document.getElementById('showContact');
     const btnLocation = document.getElementById('showLocation');
-    const btnChef = document.getElementById('showChef');
 
     // Sections
     const mainContent = document.getElementById('mainContent');
     const cateringSection = document.getElementById('catering');
     const contactSection = document.getElementById('contact');
     const locationSection = document.getElementById('location');
-    const chefSection = document.getElementById('chef');
 
     function hideAll() {
       mainContent.style.display = 'none';
       cateringSection.style.display = 'none';
       contactSection.style.display = 'none';
       locationSection.style.display = 'none';
-      chefSection.style.display = 'none';
 
       btnMenu.classList.remove('active');
       btnCatering.classList.remove('active');
       btnContact.classList.remove('active');
       btnLocation.classList.remove('active');
-      btnChef.classList.remove('active');
     }
 
     btnMenu.addEventListener('click', () => {
@@ -505,4 +439,83 @@
 
     btnContact.addEventListener('click', () => {
       hideAll();
-      contactSection
+      contactSection.style.display = 'block';
+      btnContact.classList.add('active');
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    btnLocation.addEventListener('click', () => {
+      hideAll();
+      locationSection.style.display = 'block';
+      btnLocation.classList.add('active');
+      locationSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Header slideshow
+
+    const totalImages = 4;
+    const imagePaths = [];
+
+    for (let i = 1; i <= totalImages; i++) {
+      imagePaths.push(`images/header${i}.jpg`);
+    }
+
+    let currentIndex = 0;
+    const header = document.getElementById('header');
+
+    // Preload images
+    const preloadImages = (paths, callback) => {
+      let loaded = 0;
+      const total = paths.length;
+      paths.forEach(path => {
+        const img = new Image();
+        img.src = path;
+        img.onload = () => {
+          loaded++;
+          if (loaded === total) callback();
+        };
+      });
+    };
+
+    function changeHeaderImage() {
+      header.classList.add('fade');
+      setTimeout(() => {
+        header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`;
+        header.classList.remove('fade');
+        currentIndex = (currentIndex + 1) % imagePaths.length;
+      }, 1000);
+    }
+
+    preloadImages(imagePaths, () => {
+      header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`; // first image instantly
+      currentIndex++;
+      setInterval(changeHeaderImage, 4000);
+    });
+
+    // Contact form email
+
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const userEmail = document.getElementById('userEmail').value.trim();
+      const questionType = document.getElementById('questionType').value;
+      const details = document.getElementById('details').value.trim();
+
+      if (!userEmail || !questionType || !details) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      const toEmail = 'theblackboardkart@gmail.com';
+      const subject = encodeURIComponent(`Contact Form: ${questionType}`);
+      const body = encodeURIComponent(`From: ${userEmail}\n\nQuestion Type: ${questionType}\n\nDetails:\n${details}`);
+
+      const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+
+      window.location.href = mailtoLink;
+    });
+  </script>
+
+</body>
+</html>
