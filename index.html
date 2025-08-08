@@ -13,7 +13,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     body {
-      background: #d9d9d9; /* original lighter gray */
+      background: #d9d9d9; /* lighter gray */
       color: #222;
       line-height: 1.5;
       min-height: 100vh;
@@ -37,30 +37,69 @@
       flex-grow: 1;
     }
 
+    /* HEADER */
     header {
-      background: #248bf2;
+      position: relative;
+      height: 60vh;
+      min-height: 300px;
       color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 40px 20px 30px;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1s ease-in-out;
+      opacity: 1;
     }
-    header img {
-      max-width: 250px;
-      margin-bottom: 20px;
+    header.fade {
+      opacity: 0;
+    }
+    header .overlay {
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 90%;
     }
     header h1 {
       font-size: 3rem;
       letter-spacing: 3px;
-      margin-bottom: 10px;
       font-weight: 700;
-      color: #fff;
+      margin-bottom: 10px;
     }
     header p {
       font-size: 1.3rem;
       font-weight: 500;
       font-style: italic;
       color: #f39c12;
+    }
+
+    /* Responsive header */
+    @media (max-width: 768px) {
+      header {
+        height: 50vh;
+        background-position: center top;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+      header .overlay {
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      header {
+        height: 40vh;
+      }
+      header h1 {
+        font-size: 1.4rem;
+      }
+      header p {
+        font-size: 0.9rem;
+      }
     }
 
     nav {
@@ -138,7 +177,7 @@
       margin-bottom: 50px;
     }
 
-    /* Catering and Location boxes use same style */
+    /* Catering and Location */
     .catering-box {
       background: #fdf6e3;
       border-radius: 15px;
@@ -149,23 +188,24 @@
       line-height: 1.6;
     }
 
-    /* Contact */
-    .contact-box {
-      background: #2c3e50;
-      color: white;
+    /* Contact - background matches other sections */
+    #contact {
+      background: #fdf6e3;
       border-radius: 15px;
       padding: 25px;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
       font-size: 1.2rem;
+      color: #4a3c00;
+      line-height: 1.6;
+      margin-bottom: 50px;
+      text-align: center;
     }
-    .contact-box a {
-      color: #f39c12;
+    #contact a {
+      color: #d35400;
       font-weight: 700;
       text-decoration: underline;
     }
-    .contact-box p {
+    #contact p {
       margin-bottom: 10px;
     }
 
@@ -196,10 +236,11 @@
 </head>
 <body>
 
-  <header>
-    <img src="https://i.postimg.cc/q7XRWvvC/TBBK-Logo.png" alt="The Blackboard Kart Logo" />
-    <h1>The Blackboard Kart</h1>
-    <p>Fresh Flavors On Wheels — Catering Your Events!</p>
+  <header id="header">
+    <div class="overlay">
+      <h1>The Blackboard Kart</h1>
+      <p>Fresh Flavors On Wheels — Catering Your Events!</p>
+    </div>
   </header>
 
   <nav>
@@ -253,11 +294,9 @@
     <!-- Contact -->
     <section id="contact">
       <h2>Contact Us</h2>
-      <div class="contact-box">
-        <p>Phone: <a href="tel:+15099544391">(509) 954-4391</a></p>
-        <p>Email: <a href="mailto:theblackboardkart@gmail.com">theblackboardkart@gmail.com</a></p>
-        <p>Follow us on social media for location updates and special offers!</p>
-      </div>
+      <p>Phone: <a href="tel:+15099544391">(509) 954-4391</a></p>
+      <p>Email: <a href="mailto:theblackboardkart@gmail.com">theblackboardkart@gmail.com</a></p>
+      <p>Follow us on social media for location updates and special offers!</p>
     </section>
 
     <!-- Location -->
@@ -325,6 +364,47 @@
       locationSection.style.display = 'block';
       btnLocation.classList.add('active');
       locationSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Header slideshow
+
+    const totalImages = 4;
+    const imagePaths = [];
+
+    for (let i = 1; i <= totalImages; i++) {
+      imagePaths.push(`images/header${i}.jpg`);
+    }
+
+    let currentIndex = 0;
+    const header = document.getElementById('header');
+
+    // Preload images
+    const preloadImages = (paths, callback) => {
+      let loaded = 0;
+      const total = paths.length;
+      paths.forEach(path => {
+        const img = new Image();
+        img.src = path;
+        img.onload = () => {
+          loaded++;
+          if (loaded === total) callback();
+        };
+      });
+    };
+
+    function changeHeaderImage() {
+      header.classList.add('fade');
+      setTimeout(() => {
+        header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`;
+        header.classList.remove('fade');
+        currentIndex = (currentIndex + 1) % imagePaths.length;
+      }, 1000);
+    }
+
+    preloadImages(imagePaths, () => {
+      header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`; // first image instantly
+      currentIndex++;
+      setInterval(changeHeaderImage, 4000);
     });
   </script>
 
