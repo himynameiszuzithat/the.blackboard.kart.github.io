@@ -44,6 +44,7 @@
       min-height: 300px;
       color: white;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -51,9 +52,14 @@
       background-position: center;
       transition: opacity 1s ease-in-out;
       opacity: 1;
+      padding: 20px;
     }
     header.fade {
       opacity: 0;
+    }
+    header img {
+      max-width: 200px;
+      margin-bottom: 15px;
     }
     header .overlay {
       background: rgba(0,0,0,0.4);
@@ -89,6 +95,9 @@
       header .overlay {
         padding: 15px;
       }
+      header img {
+        max-width: 150px;
+      }
     }
     @media (max-width: 480px) {
       header {
@@ -100,6 +109,9 @@
       header p {
         font-size: 0.9rem;
       }
+      header img {
+        max-width: 120px;
+      }
     }
 
     nav {
@@ -108,7 +120,7 @@
     }
     nav button {
       cursor: pointer;
-      margin: 0 14px;
+      margin: 0 10px;
       font-weight: 600;
       font-size: 1.1rem;
       padding: 8px 14px;
@@ -209,8 +221,41 @@
       margin-bottom: 10px;
     }
 
+    /* Reviews */
+    #reviews {
+      background: #fdf6e3;
+      border-radius: 15px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+      font-size: 1.1rem;
+      color: #4a3c00;
+      line-height: 1.6;
+      margin-bottom: 50px;
+    }
+    .review {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+    }
+    .review .reviewer {
+      font-weight: 700;
+      color: #d35400;
+      margin-bottom: 8px;
+    }
+    .review .rating {
+      color: #f39c12;
+      margin-bottom: 12px;
+    }
+    .review .comment {
+      font-style: italic;
+      font-size: 1rem;
+      color: #333;
+    }
+
     /* Initially hidden sections */
-    #catering, #contact, #location {
+    #catering, #contact, #location, #reviews {
       display: none;
     }
 
@@ -237,6 +282,7 @@
 <body>
 
   <header id="header">
+    <img src="https://i.postimg.cc/q7XRWvvC/TBBK-Logo.png" alt="The Blackboard Kart Logo" />
     <div class="overlay">
       <h1>The Blackboard Kart</h1>
       <p>Fresh Flavors On Wheels — Catering Your Events!</p>
@@ -248,6 +294,7 @@
     <button id="showCatering">Catering</button>
     <button id="showContact">Contact</button>
     <button id="showLocation">Location</button>
+    <button id="showReviews">Reviews</button>
   </nav>
 
   <main class="container">
@@ -307,6 +354,36 @@
         <p><a href="https://www.instagram.com/theblackboardkart/" target="_blank" rel="noopener noreferrer">@theblackboardkart</a></p>
       </div>
     </section>
+
+    <!-- Reviews -->
+    <section id="reviews">
+      <h2>Customer Reviews</h2>
+
+      <div class="review">
+        <div class="reviewer">Anna S.</div>
+        <div class="rating">★★★★★</div>
+        <div class="comment">“Absolutely loved the Breakfast sandwich! Fresh and flavorful every time.”</div>
+      </div>
+
+      <div class="review">
+        <div class="reviewer">Mark D.</div>
+        <div class="rating">★★★★☆</div>
+        <div class="comment">“Great food and excellent service at our company picnic!”</div>
+      </div>
+
+      <div class="review">
+        <div class="reviewer">Sophia L.</div>
+        <div class="rating">★★★★★</div>
+        <div class="comment">“Highly recommend The Blackboard Kart for weddings — tasty and professional.”</div>
+      </div>
+
+      <div class="review">
+        <div class="reviewer">James K.</div>
+        <div class="rating">★★★★★</div>
+        <div class="comment">“The Banh Mi is unbeatable. Can’t wait to have it again!”</div>
+      </div>
+
+    </section>
   </main>
 
   <footer>
@@ -319,23 +396,27 @@
     const btnCatering = document.getElementById('showCatering');
     const btnContact = document.getElementById('showContact');
     const btnLocation = document.getElementById('showLocation');
+    const btnReviews = document.getElementById('showReviews');
 
     // Sections
     const mainContent = document.getElementById('mainContent');
     const cateringSection = document.getElementById('catering');
     const contactSection = document.getElementById('contact');
     const locationSection = document.getElementById('location');
+    const reviewsSection = document.getElementById('reviews');
 
     function hideAll() {
       mainContent.style.display = 'none';
       cateringSection.style.display = 'none';
       contactSection.style.display = 'none';
       locationSection.style.display = 'none';
+      reviewsSection.style.display = 'none';
 
       btnMenu.classList.remove('active');
       btnCatering.classList.remove('active');
       btnContact.classList.remove('active');
       btnLocation.classList.remove('active');
+      btnReviews.classList.remove('active');
     }
 
     btnMenu.addEventListener('click', () => {
@@ -364,6 +445,13 @@
       locationSection.style.display = 'block';
       btnLocation.classList.add('active');
       locationSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    btnReviews.addEventListener('click', () => {
+      hideAll();
+      reviewsSection.style.display = 'block';
+      btnReviews.classList.add('active');
+      reviewsSection.scrollIntoView({ behavior: 'smooth' });
     });
 
     // Header slideshow
