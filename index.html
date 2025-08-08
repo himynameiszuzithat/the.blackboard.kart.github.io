@@ -120,7 +120,7 @@
     }
     nav button {
       cursor: pointer;
-      margin: 0 10px;
+      margin: 0 8px;
       font-weight: 600;
       font-size: 1.1rem;
       padding: 8px 14px;
@@ -221,41 +221,108 @@
       margin-bottom: 10px;
     }
 
-    /* Reviews */
-    #reviews {
+    /* Contact form styles */
+    #contactForm {
+      max-width: 500px;
+      margin: 20px auto 0 auto;
+      background: #fff3d6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
+      text-align: left;
+    }
+    #contactForm h3 {
+      margin-bottom: 15px;
+      color: #d35400;
+      text-align: center;
+    }
+    #contactForm label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #4a3c00;
+    }
+    #contactForm input,
+    #contactForm select,
+    #contactForm textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #d35400;
+      margin-top: 5px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #4a3c00;
+      resize: vertical;
+    }
+    #contactForm button {
+      margin-top: 20px;
+      background-color: #f39c12;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+    #contactForm button:hover {
+      background-color: #d35400;
+    }
+
+    /* Meet the Chef */
+    #chef {
       background: #fdf6e3;
       border-radius: 15px;
-      padding: 25px 30px;
+      padding: 25px;
       box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-      font-size: 1.1rem;
       color: #4a3c00;
-      line-height: 1.6;
       margin-bottom: 50px;
+      text-align: center;
     }
-    .review {
-      background: white;
-      border-radius: 10px;
+
+    #chef .image-slider {
+      position: relative;
+      max-width: 300px;
+      margin: 0 auto 20px auto;
+      height: 300px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(211, 84, 0, 0.4);
+    }
+
+    #chef .image-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    #chef .image-slider img.active {
+      opacity: 1;
+    }
+
+    #chef .bio {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      background: #fff3d6;
       padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 15px;
-    }
-    .review .reviewer {
-      font-weight: 700;
-      color: #d35400;
-      margin-bottom: 8px;
-    }
-    .review .rating {
-      color: #f39c12;
-      margin-bottom: 12px;
-    }
-    .review .comment {
-      font-style: italic;
-      font-size: 1rem;
-      color: #333;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
+      color: #4a3c00;
     }
 
     /* Initially hidden sections */
-    #catering, #contact, #location, #reviews {
+    #catering, #contact, #location, #chef {
       display: none;
     }
 
@@ -294,7 +361,7 @@
     <button id="showCatering">Catering</button>
     <button id="showContact">Contact</button>
     <button id="showLocation">Location</button>
-    <button id="showReviews">Reviews</button>
+    <button id="showChef">Meet the Chef</button>
   </nav>
 
   <main class="container">
@@ -344,6 +411,27 @@
       <p>Phone: <a href="tel:+15099544391">(509) 954-4391</a></p>
       <p>Email: <a href="mailto:theblackboardkart@gmail.com">theblackboardkart@gmail.com</a></p>
       <p>Follow us on social media for location updates and special offers!</p>
+
+      <form id="contactForm">
+        <h3>Send us a message</h3>
+
+        <label for="userEmail">Your Email:</label>
+        <input type="email" id="userEmail" name="userEmail" required placeholder="you@example.com" />
+
+        <label for="questionType">Type of Question:</label>
+        <select id="questionType" name="questionType" required>
+          <option value="" disabled selected>Select a type</option>
+          <option value="General Inquiry">General Inquiry</option>
+          <option value="Booking Request">Booking Request</option>
+          <option value="Menu Question">Menu Question</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="details">Details:</label>
+        <textarea id="details" name="details" required rows="4" placeholder="Write your message here..."></textarea>
+
+        <button type="submit">Send Email</button>
+      </form>
     </section>
 
     <!-- Location -->
@@ -355,34 +443,16 @@
       </div>
     </section>
 
-    <!-- Reviews -->
-    <section id="reviews">
-      <h2>Customer Reviews</h2>
-
-      <div class="review">
-        <div class="reviewer">Anna S.</div>
-        <div class="rating">★★★★★</div>
-        <div class="comment">“Absolutely loved the Breakfast sandwich! Fresh and flavorful every time.”</div>
+    <!-- Meet the Chef -->
+    <section id="chef">
+      <h2>Meet the Chef</h2>
+      <div class="image-slider">
+        <img src="images/eric1.jpg" alt="Eric McGraw - Chef 1" class="active" />
+        <img src="images/eric2.jpg" alt="Eric McGraw - Chef 2" />
       </div>
-
-      <div class="review">
-        <div class="reviewer">Mark D.</div>
-        <div class="rating">★★★★☆</div>
-        <div class="comment">“Great food and excellent service at our company picnic!”</div>
+      <div class="bio">
+        <p>Chef Eric McGraw is a passionate culinary artist who believes food is a powerful way to connect with people. With years of experience at the Logan Tavern in downtown Spokane, Eric’s love for cooking and community inspired him to open The Blackboard Kart. When he’s not crafting delicious dishes, Eric enjoys spending quality time with his wife and two sons, cherishing the moments that make life flavorful both inside and outside the kitchen.</p>
       </div>
-
-      <div class="review">
-        <div class="reviewer">Sophia L.</div>
-        <div class="rating">★★★★★</div>
-        <div class="comment">“Highly recommend The Blackboard Kart for weddings — tasty and professional.”</div>
-      </div>
-
-      <div class="review">
-        <div class="reviewer">James K.</div>
-        <div class="rating">★★★★★</div>
-        <div class="comment">“The Banh Mi is unbeatable. Can’t wait to have it again!”</div>
-      </div>
-
     </section>
   </main>
 
@@ -396,27 +466,27 @@
     const btnCatering = document.getElementById('showCatering');
     const btnContact = document.getElementById('showContact');
     const btnLocation = document.getElementById('showLocation');
-    const btnReviews = document.getElementById('showReviews');
+    const btnChef = document.getElementById('showChef');
 
     // Sections
     const mainContent = document.getElementById('mainContent');
     const cateringSection = document.getElementById('catering');
     const contactSection = document.getElementById('contact');
     const locationSection = document.getElementById('location');
-    const reviewsSection = document.getElementById('reviews');
+    const chefSection = document.getElementById('chef');
 
     function hideAll() {
       mainContent.style.display = 'none';
       cateringSection.style.display = 'none';
       contactSection.style.display = 'none';
       locationSection.style.display = 'none';
-      reviewsSection.style.display = 'none';
+      chefSection.style.display = 'none';
 
       btnMenu.classList.remove('active');
       btnCatering.classList.remove('active');
       btnContact.classList.remove('active');
       btnLocation.classList.remove('active');
-      btnReviews.classList.remove('active');
+      btnChef.classList.remove('active');
     }
 
     btnMenu.addEventListener('click', () => {
@@ -435,66 +505,4 @@
 
     btnContact.addEventListener('click', () => {
       hideAll();
-      contactSection.style.display = 'block';
-      btnContact.classList.add('active');
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    btnLocation.addEventListener('click', () => {
-      hideAll();
-      locationSection.style.display = 'block';
-      btnLocation.classList.add('active');
-      locationSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    btnReviews.addEventListener('click', () => {
-      hideAll();
-      reviewsSection.style.display = 'block';
-      btnReviews.classList.add('active');
-      reviewsSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // Header slideshow
-
-    const totalImages = 4;
-    const imagePaths = [];
-
-    for (let i = 1; i <= totalImages; i++) {
-      imagePaths.push(`images/header${i}.jpg`);
-    }
-
-    let currentIndex = 0;
-    const header = document.getElementById('header');
-
-    // Preload images
-    const preloadImages = (paths, callback) => {
-      let loaded = 0;
-      const total = paths.length;
-      paths.forEach(path => {
-        const img = new Image();
-        img.src = path;
-        img.onload = () => {
-          loaded++;
-          if (loaded === total) callback();
-        };
-      });
-    };
-
-    function changeHeaderImage() {
-      header.classList.add('fade');
-      setTimeout(() => {
-        header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`;
-        header.classList.remove('fade');
-        currentIndex = (currentIndex + 1) % imagePaths.length;
-      }, 1000);
-    }
-
-    preloadImages(imagePaths, () => {
-      header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`; // first image instantly
-      currentIndex++;
-      setInterval(changeHeaderImage, 4000);
-    });
-  </script>
-
-</body>
-</html>
+      contactSection
