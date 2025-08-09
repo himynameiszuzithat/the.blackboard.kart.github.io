@@ -13,7 +13,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     body {
-      background: #d9d9d9; /* lighter gray */
+      background: #d9d9d9;
       color: #222;
       line-height: 1.5;
       min-height: 100vh;
@@ -28,16 +28,12 @@
       color: #e67e22;
       text-decoration: underline;
     }
-
-    /* Container */
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 20px;
       flex-grow: 1;
     }
-
-    /* HEADER */
     header {
       position: relative;
       height: 60vh;
@@ -79,41 +75,19 @@
       font-style: italic;
       color: #f39c12;
     }
-
-    /* Responsive header */
     @media (max-width: 768px) {
-      header {
-        height: 50vh;
-        background-position: center top;
-      }
-      header h1 {
-        font-size: 1.8rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
-      header .overlay {
-        padding: 15px;
-      }
-      header img {
-        max-width: 150px;
-      }
+      header { height: 50vh; background-position: center top; }
+      header h1 { font-size: 1.8rem; }
+      header p { font-size: 1rem; }
+      header .overlay { padding: 15px; }
+      header img { max-width: 150px; }
     }
     @media (max-width: 480px) {
-      header {
-        height: 40vh;
-      }
-      header h1 {
-        font-size: 1.4rem;
-      }
-      header p {
-        font-size: 0.9rem;
-      }
-      header img {
-        max-width: 120px;
-      }
+      header { height: 40vh; }
+      header h1 { font-size: 1.4rem; }
+      header p { font-size: 0.9rem; }
+      header img { max-width: 120px; }
     }
-
     nav {
       margin: 30px 0;
       text-align: center;
@@ -134,7 +108,6 @@
     nav button.active {
       background-color: #d35400;
     }
-
     section {
       margin-bottom: 50px;
     }
@@ -146,8 +119,6 @@
       padding-bottom: 5px;
       color: #2c3e50;
     }
-
-    /* Menu */
     .menu-list {
       display: flex;
       flex-wrap: wrap;
@@ -176,8 +147,6 @@
       font-size: 1rem;
       color: #6e4a00;
     }
-
-    /* Owner's Story */
     .owners-story {
       background: #fdf6e3;
       border-radius: 15px;
@@ -188,8 +157,6 @@
       line-height: 1.6;
       margin-bottom: 50px;
     }
-
-    /* Catering and Location */
     .catering-box {
       background: #fdf6e3;
       border-radius: 15px;
@@ -199,8 +166,6 @@
       color: #4a3c00;
       line-height: 1.6;
     }
-
-    /* Contact - background matches other sections */
     #contact {
       background: #fdf6e3;
       border-radius: 15px;
@@ -220,8 +185,6 @@
     #contact p {
       margin-bottom: 10px;
     }
-
-    /* Contact form styles */
     #contactForm {
       max-width: 500px;
       margin: 20px auto 0 auto;
@@ -271,12 +234,10 @@
     #contactForm button:hover {
       background-color: #d35400;
     }
-
     /* Initially hidden sections */
-    #catering, #contact, #location {
+    #catering, #contact, #location, #chef {
       display: none;
     }
-
     footer {
       text-align: center;
       padding: 15px 10px;
@@ -286,7 +247,6 @@
       border-top: 1px solid #ddd;
       margin-top: auto;
     }
-
     @media (max-width: 650px) {
       .menu-list {
         flex-direction: column;
@@ -295,10 +255,37 @@
         flex: 1 1 100%;
       }
     }
+
+    /* Fade images container and images for Meet the Chef */
+    .chef-images {
+      position: relative;
+      width: 100%;
+      max-width: 350px;
+      height: 350px;
+      margin: 20px auto 30px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+      background: #fdf6e3;
+    }
+    .chef-images img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      border-radius: 15px;
+    }
+    .chef-images img.active {
+      opacity: 1;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
-
   <header id="header">
     <img src="https://i.postimg.cc/q7XRWvvC/TBBK-Logo.png" alt="The Blackboard Kart Logo" />
     <div class="overlay">
@@ -306,68 +293,43 @@
       <p>Fresh Flavors On Wheels — Catering Your Events!</p>
     </div>
   </header>
-
   <nav>
     <button id="showMenu" class="active">Menu</button>
     <button id="showCatering">Catering</button>
     <button id="showContact">Contact</button>
+    <button id="showChef">Meet the Chef</button>
     <button id="showLocation">Location</button>
   </nav>
-
   <main class="container">
     <div id="mainContent">
-      <!-- Owner's Story -->
       <section id="ownersStory" class="owners-story">
         <h2>Owner's Story</h2>
         <p>After years of honing his craft as a professional chef, Eric McGraw founded The Blackboard Kart with a clear vision: to bring exceptional food and genuine connections to the community. Eric’s lifelong passion for cooking goes beyond creating delicious dishes — he thrives on sharing stories and building relationships through the universal language of food and conversation. With a commitment to quality and a love for bringing people together, The Blackboard Kart serves up more than just meals; it serves memorable experiences.</p>
       </section>
-
-      <!-- Menu -->
       <section id="menu">
         <h2>Our Menu</h2>
         <ul class="menu-list">
-          <li class="menu-item">
-            <h3>Breakfast: $12</h3>
-            <p>Ham, Bacon, Egg, Pepperjack Cheese, Sriracha Aioli on a Fresh Roll</p>
-          </li>
-          <li class="menu-item">
-            <h3>Toasted Italian: $15</h3>
-            <p>Pepperoni, Salami, Ham, Mozzarella, Lettuce, Tuscan Salsa, Garlic Aioli on a Parm Crusted Roll</p>
-          </li>
-          <li class="menu-item">
-            <h3>Cheesesteak: $15</h3>
-            <p>Beef, Onions, Jalapeno, Pepperjack Cheese, Garlic Aioli on a Toasted Roll</p>
-          </li>
-          <li class="menu-item">
-            <h3>Banh Mi: $15</h3>
-            <p>Roasted Pork Loin, Ham, Pickled Veggies, Jalapeno, Hoisin, Sriracha Aioli on a Toasted Roll</p>
-          </li>
+          <li class="menu-item"><h3>Breakfast: $12</h3><p>Ham, Bacon, Egg, Pepperjack Cheese, Sriracha Aioli on a Fresh Roll</p></li>
+          <li class="menu-item"><h3>Pepperoni, Salami, Ham, Mozzarella, Lettuce, Tuscan Salsa, Garlic Aioli on a Parm Crusted Roll</p></li>
+          <li class="menu-item"><h3>Cheesesteak: $15</h3><p>Beef, Onions, Jalapeno, Pepperjack Cheese, Garlic Aioli on a Toasted Roll</p></li>
+          <li class="menu-item"><h3>Banh Mi: $15</h3><p>Roasted Pork Loin, Ham, Pickled Veggies, Jalapeno, Hoisin, Sriracha Aioli on a Toasted Roll</p></li>
         </ul>
       </section>
     </div>
-
-    <!-- Catering -->
     <section id="catering">
       <h2>Catering Services</h2>
-      <div class="catering-box">
-        <p>Hosting a party, wedding, graduation, or corporate event? The Blackboard Kart is ready to serve delicious food and fun vibes at your next gathering! We offer an extremely talented and experienced chef alongside professional catering tailored to your event size and needs.</p>
-        <p>Contact us to book The Blackboard Kart for your special occasion and delight your guests with fresh, flavorful street food made right on site!</p>
-      </div>
+      <div class="catering-box"><p>Hosting a party, wedding, graduation, or corporate event? The Blackboard Kart is ready to serve delicious food and fun vibes at your next gathering! We offer an extremely talented and experienced chef alongside professional catering tailored to your event size and needs.</p>
+        <p>Contact us to book The Blackboard Kart for your special occasion and delight your guests with fresh, flavorful street food made right on site!</p></div>
     </section>
-
-    <!-- Contact -->
     <section id="contact">
       <h2>Contact Us</h2>
       <p>Phone: <a href="tel:+15099544391">(509) 954-4391</a></p>
       <p>Email: <a href="mailto:theblackboardkart@gmail.com">theblackboardkart@gmail.com</a></p>
       <p>Follow us on social media for location updates and special offers!</p>
-
       <form id="contactForm">
         <h3>Send us a message</h3>
-
         <label for="userEmail">Your Email:</label>
         <input type="email" id="userEmail" name="userEmail" required placeholder="you@example.com" />
-
         <label for="questionType">Type of Question:</label>
         <select id="questionType" name="questionType" required>
           <option value="" disabled selected>Select a type</option>
@@ -376,74 +338,75 @@
           <option value="Menu Question">Menu Question</option>
           <option value="Other">Other</option>
         </select>
-
         <label for="details">Details:</label>
         <textarea id="details" name="details" required rows="4" placeholder="Write your message here..."></textarea>
-
         <button type="submit">Send Email</button>
       </form>
     </section>
-
-    <!-- Location -->
-    <section id="location">
-      <h2>Our Location</h2>
+    <section id="chef">
+      <h2>Meet the Chef</h2>
+      <div class="chef-images">
+        <img src="https://i.postimg.cc/FHHbkXM3/eric1.png" alt="Chef Eric McGraw 1" class="active" />
+        <img src="https://i.postimg.cc/tg1hDtCg/eric2.png" alt="Chef Eric McGraw 2" />
+      </div>
       <div class="catering-box">
-        <p>You’ll often find us at popular events around Spokane and Coeur d’Alene. For the latest updates on where we’ll be, follow us on our Instagram!</p>
-        <p><a href="https://www.instagram.com/theblackboardkart/" target="_blank" rel="noopener noreferrer">@theblackboardkart</a></p>
+        <p>Chef Eric McGraw is a passionate culinary artist who believes food is a powerful way to connect with people. With years of experience at the Logan Tavern in downtown Spokane, Eric’s love for cooking and community inspired him to open The Blackboard Kart. When he’s not crafting delicious dishes, Eric enjoys spending quality time with his wife and two sons, cherishing the moments that make life flavorful both inside and outside the kitchen.</p>
       </div>
     </section>
+    <section id="location">
+      <h2>Our Location</h2>
+      <div class="catering-box"><p>You’ll often find us at popular events around Spokane and Coeur d’Alene. For the latest updates on where we’ll be, follow us on our Instagram!</p>
+        <p><a href="https://www.instagram.com/theblackboardkart/" target="_blank" rel="noopener noreferrer">@theblackboardkart</a></p></div>
+    </section>
   </main>
-
-  <footer>
-    All rights reserved © The Blackboard Kart 2026
-  </footer>
-
+  <footer>All rights reserved © The Blackboard Kart 2026</footer>
   <script>
-    // Buttons
     const btnMenu = document.getElementById('showMenu');
     const btnCatering = document.getElementById('showCatering');
     const btnContact = document.getElementById('showContact');
+    const btnChef = document.getElementById('showChef');
     const btnLocation = document.getElementById('showLocation');
-
-    // Sections
     const mainContent = document.getElementById('mainContent');
     const cateringSection = document.getElementById('catering');
     const contactSection = document.getElementById('contact');
+    const chefSection = document.getElementById('chef');
     const locationSection = document.getElementById('location');
-
     function hideAll() {
       mainContent.style.display = 'none';
       cateringSection.style.display = 'none';
       contactSection.style.display = 'none';
+      chefSection.style.display = 'none';
       locationSection.style.display = 'none';
-
       btnMenu.classList.remove('active');
       btnCatering.classList.remove('active');
       btnContact.classList.remove('active');
+      btnChef.classList.remove('active');
       btnLocation.classList.remove('active');
     }
-
     btnMenu.addEventListener('click', () => {
       hideAll();
       mainContent.style.display = 'block';
       btnMenu.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
     btnCatering.addEventListener('click', () => {
       hideAll();
       cateringSection.style.display = 'block';
       btnCatering.classList.add('active');
       cateringSection.scrollIntoView({ behavior: 'smooth' });
     });
-
     btnContact.addEventListener('click', () => {
       hideAll();
       contactSection.style.display = 'block';
       btnContact.classList.add('active');
       contactSection.scrollIntoView({ behavior: 'smooth' });
     });
-
+    btnChef.addEventListener('click', () => {
+      hideAll();
+      chefSection.style.display = 'block';
+      btnChef.classList.add('active');
+      chefSection.scrollIntoView({ behavior: 'smooth' });
+    });
     btnLocation.addEventListener('click', () => {
       hideAll();
       locationSection.style.display = 'block';
@@ -451,71 +414,31 @@
       locationSection.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // Header slideshow
-
-    const totalImages = 4;
-    const imagePaths = [];
-
-    for (let i = 1; i <= totalImages; i++) {
-      imagePaths.push(`images/header${i}.jpg`);
-    }
-
-    let currentIndex = 0;
-    const header = document.getElementById('header');
-
-    // Preload images
-    const preloadImages = (paths, callback) => {
-      let loaded = 0;
-      const total = paths.length;
-      paths.forEach(path => {
-        const img = new Image();
-        img.src = path;
-        img.onload = () => {
-          loaded++;
-          if (loaded === total) callback();
-        };
-      });
-    };
-
-    function changeHeaderImage() {
-      header.classList.add('fade');
-      setTimeout(() => {
-        header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`;
-        header.classList.remove('fade');
-        currentIndex = (currentIndex + 1) % imagePaths.length;
-      }, 1000);
-    }
-
-    preloadImages(imagePaths, () => {
-      header.style.backgroundImage = `url('${imagePaths[currentIndex]}')`; // first image instantly
-      currentIndex++;
-      setInterval(changeHeaderImage, 4000);
-    });
-
-    // Contact form email
+    // Image fade logic for Meet the Chef
+    const chefImages = document.querySelectorAll('.chef-images img');
+    let chefCurrent = 0;
+    setInterval(() => {
+      chefImages[chefCurrent].classList.remove('active');
+      chefCurrent = (chefCurrent + 1) % chefImages.length;
+      chefImages[chefCurrent].classList.add('active');
+    }, 4000);
 
     const contactForm = document.getElementById('contactForm');
     contactForm.addEventListener('submit', function(event) {
       event.preventDefault();
-
       const userEmail = document.getElementById('userEmail').value.trim();
       const questionType = document.getElementById('questionType').value;
       const details = document.getElementById('details').value.trim();
-
       if (!userEmail || !questionType || !details) {
         alert('Please fill in all fields.');
         return;
       }
-
       const toEmail = 'theblackboardkart@gmail.com';
       const subject = encodeURIComponent(`Contact Form: ${questionType}`);
       const body = encodeURIComponent(`From: ${userEmail}\n\nQuestion Type: ${questionType}\n\nDetails:\n${details}`);
-
       const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-
       window.location.href = mailtoLink;
     });
   </script>
-
 </body>
 </html>
