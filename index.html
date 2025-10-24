@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -119,7 +119,7 @@
   <div id="mainContent">
     <section id="ownersStory" class="owners-story">
       <h2>Owner's Story</h2>
-      <p>After years of honing his craft as a professional chef, Eric McGraw founded The Blackboard Kart with a clear vision: to bring exceptional food and genuine connections to the community. Eric’s lifelong passion for cooking goes beyond creating delicious dishes — he thrives on sharing stories and building relationships through the universal language of food and conversation. With a commitment to quality and a love for bringing people together, The Blackboard Kart serves up more than just meals; it serves memorable experiences.</p>
+      <p>After years of honing his craft as a professional chef working at the Logan Tavern, Eric McGraw founded The Blackboard Kart with a clear vision: to bring exceptional food and genuine connections to the community. Eric’s lifelong passion for cooking goes beyond creating delicious dishes — he thrives on sharing stories and building relationships through the universal language of food and conversation. With a commitment to quality and a love for bringing people together, Eric not only uses his kart to connect with the community, But he also works alongside his family, spending quality time with them while pursuing his passion. The Blackboard Kart serves up more than just meals; it serves memorable experiences.</p>
     </section>
     <section id="menu">
       <h2>Our Menu</h2>
@@ -277,7 +277,7 @@
     }
     const toEmail='theblackboardkart@gmail.com',
           subject=encodeURIComponent(`Contact Form: ${questionType}`),
-          body=encodeURIComponent(`From: ${userEmail}\n\nQuestion Type: ${questionType}\n\nDetails:\n${details}`),
+          body=encodeURIComponent(`From: ${userEmail}\\n\\nQuestion Type: ${questionType}\\n\\nDetails:\\n${details}`),
           mailtoLink=`mailto:${toEmail}?subject=${subject}&body=${body}`;
     window.location.href=mailtoLink;
   });
